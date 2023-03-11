@@ -52,18 +52,19 @@ const Upload = () => {
       data.append("file", selectedVideos[i]);
     }
 
+    console.log(data);
     axios
       .post(
         "http://localhost:5000/api/upload",
         data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer " +
-              JSON.parse(localStorage.getItem("userTokenTime")).token,
-          },
-        },
+        // {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Authorization":
+        //       "Bearer " +
+        //       JSON.parse(localStorage.getItem("userTokenTime")).token,
+        //   },
+        // },
         {
           onUploadProgress: (ProgressEvent) => {
             setLoaded((ProgressEvent.loaded / ProgressEvent.total) * 100);
@@ -73,6 +74,7 @@ const Upload = () => {
       .then((res) => {
         toast.success("Upload Successful");
         alert(`upload success`);
+        console.log( JSON.parse(localStorage.getItem("userTokenTime")).token)
       })
       .catch((err) => {
         toast.error(`Upload Fail with status: ${err.statusText}`);
